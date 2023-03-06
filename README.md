@@ -16,8 +16,7 @@ user management and JWT authentication with Django and GraphQL
         - AUTH_USER_MODEL = 'appname.classname'
 
 - b) graphql end-points
-    - for more information check this repo
-        - https://github.com/septa-ma/Django-GraphQL
+    - for more information check https://github.com/septa-ma/Django-GraphQL
 
 - c) JWT authentication
     - 
