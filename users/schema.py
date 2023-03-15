@@ -1,5 +1,4 @@
 import graphene
-import graphql_jwt
 from graphql_auth import mutations
 # UserQuery to query users with some useful filters.
 # MeQuery to retrieve data for the currently authenticated user.

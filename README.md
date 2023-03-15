@@ -82,14 +82,6 @@ user management and JWT authentication with Django and GraphQL
             'graphql_jwt.backends.JSONWebTokenBackend',
             'django.contrib.auth.backends.ModelBackend',
         ]
-    - 7- add Mutations in schema.py
-        - import graphene
-        - import graphql_jwt
-        - class Mutation(graphene.ObjectType):
-            - token_auth = graphql_jwt.ObtainJSONWebToken.Field()
-            - verify_token = graphql_jwt.Verify.Field()
-            - refresh_token = graphql_jwt.Refresh.Field()
-        - schema = graphene.Schema(mutation=Mutation)
 
 - **e) authentication system:**
     - 1- use 'django-graphql-auth' library, which helps us with functionality like registering a new user, verifying the email address of the newly signed up user, changing the user email address, changing the user password and more.
@@ -102,4 +94,5 @@ user management and JWT authentication with Django and GraphQL
             - for model_name, model in app.models.items():
             - admin.site.register(model)
     - 2- for making connection beetwen auth with jwt and graphql we need to add this list "JWT_ALLOW_ANY_CLASSES": [ ... ].
-        - add every auth mutations we want to use in this list.
+        - first add every auth mutations we want to use in this list.
+        - then import mutations from graphql_auth in schema and making queries and mutations.
