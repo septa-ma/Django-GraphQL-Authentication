@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'users',
     'graphene_django',
     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
+    'graphql_auth',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -76,13 +78,23 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mydbname', 
+        'USER': 'admin', 
+        'PASSWORD': 'mypass22',
+        'HOST': '127.0.0.1', 
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -132,9 +144,43 @@ GRAPHENE = {
     'MIDDLEWARE': [
         'graphql_jwt.middleware.JSONWebTokenMiddleware',
     ],
-}
+} 
 
 AUTHENTICATION_BACKENDS = [
-    'graphql_jwt.backends.JSONWebTokenBackend',
+    # 'graphql_jwt.backends.JSONWebTokenBackend',
+    'graphql_auth.backends.GraphQLAuthBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+GRAPHQL_AUTH = {
+    'LOGIN_ALLOWED_FIELDS': ['email'],
+    'REGISTER_MUTATION_FIELDS': ['email'],
+    'USER_NODE_FILTER_FIELDS': { 
+        "email": ["exact"], 
+        # by default it's username but we define it as user_name
+        # so we need to declare it or if you don't have username 
+        # omit it.
+        "user_name": ["exact", "icontains", "istartswith"], 
+        "is_active": ["exact"],
+        "status__archived": ["exact"],
+        "status__verified": ["exact"],
+        "status__secondary_email": ["exact"],
+    }
+}
+
+GRAPHQL_JWT = {
+    "JWT_ALLOW_ANY_CLASSES": [
+        "graphql_auth.mutations.Register",
+        "graphql_auth.mutations.VerifyAccount",
+        "graphql_auth.mutations.ObtainJSONWebToken",
+        "graphql_auth.mutations.ResendActivationEmail",
+        "graphql_auth.mutations.SendPasswordResetEmail",
+        "graphql_auth.mutations.PasswordReset",
+    ],
+    "JWT_VERYFY_EXPIRATION": True,
+    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
+}
+
+# setup your mail-server here for email activation
+# this one will print the result in console
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
