@@ -58,31 +58,31 @@ user management and JWT authentication with Django and GraphQL
     - for more information check https://github.com/septa-ma/Django-GraphQL
 
 - **d) JWT authentication**
-    - install django graphql JWT package
+    - 1- install django graphql JWT package
         - pip install django-graphql-jwt
-    - for building a connection beetwen GRAPHQL and JWT
+    - 2- for building a connection beetwen GRAPHQL and JWT
         -   GRAPHQL_JWT = {
             -    "JWT_VERIFY_EXPIRATION": True,
         -   }
-    - utilize Refresh-Token there are 2 types of refresh-token:
+    - 3- utilize Refresh-Token there are 2 types of refresh-token:
         - Single token refresh -> we use it by default.
         - Long running refresh tokens:
             - add 'graphql_jwt.refresh_token.apps.RefreshTokenConfig' to the INSTALLED_APPS[] in settings.py
             - add "JWT_LONG_RUNNING_REFRESH_TOKEN": True, in GRAPHQL_JWT dictionary
-    - add "django.contrib.auth.middleware.AuthenticationMiddleware" to your MIDDLEWARE settings.
-    - add JSONWebTokenMiddleware middleware to your GRAPHENE settings:
+    - 4- add "django.contrib.auth.middleware.AuthenticationMiddleware" to your MIDDLEWARE settings.
+    - 5- add JSONWebTokenMiddleware middleware to your GRAPHENE settings:
         - GRAPHENE = {
             'SCHEMA': 'users.schema.schema',
             'MIDDLEWARE': [
                 'graphql_jwt.middleware.JSONWebTokenMiddleware',
             ],
         } 
-    - because we utilize new authentication method, so we need to add JSONWebTokenBackend backend in settings.py
+    - 6- because we utilize new authentication method, so we need to add JSONWebTokenBackend backend in settings.py
         - AUTHENTICATION_BACKENDS = [
             'graphql_jwt.backends.JSONWebTokenBackend',
             'django.contrib.auth.backends.ModelBackend',
         ]
-    - add Mutations in schema.py
+    - 7- add Mutations in schema.py
         - import graphene
         - import graphql_jwt
         - class Mutation(graphene.ObjectType):
@@ -92,7 +92,7 @@ user management and JWT authentication with Django and GraphQL
         - schema = graphene.Schema(mutation=Mutation)
 
 - **e) authentication system:**
-    - use 'django-graphql-auth' library, which helps us with functionality like registering a new user, verifying the email address of the newly signed up user, changing the user email address, changing the user password and more.
+    - 1- use 'django-graphql-auth' library, which helps us with functionality like registering a new user, verifying the email address of the newly signed up user, changing the user email address, changing the user password and more.
         - pip install django-graphql-auth
         - add 'graphql_auth' in INSTALLED_APPS list.
         - in AUTHENTICATION_BACKENDS list first remove -> 'graphql_jwt.backends.JSONWebTokenBackend', then add -> 'graphql_auth.backends.GraphQLAuthBackend', 
@@ -101,7 +101,7 @@ user management and JWT authentication with Django and GraphQL
             - app = apps.get_app_config('graphql_auth')
             - for model_name, model in app.models.items():
             - admin.site.register(model)
-    - for making connection beetwen auth with jwt and graphql we need to add this list "JWT_ALLOW_ANY_CLASSES": [ ... ].
+    - 2- for making connection beetwen auth with jwt and graphql we need to add this list "JWT_ALLOW_ANY_CLASSES": [ ... ].
         - add every auth mutations we want to use in this list.
     
 - **f) dockerize project**
