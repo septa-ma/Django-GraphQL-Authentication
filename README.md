@@ -9,39 +9,39 @@ user management and JWT authentication with Django and GraphQL
 # this project consist of:
 
 - **a) PostgreSQL:**
-- 1- Install PostgreSQL: 
-    - sudo apt install postgresql postgresql-contrib
-    - sudo systemctl start postgresql.service
-- 2- Configure PostgreSQL:
-    - sudo -u postgres psql
-        - CREATE DATABASE mydbname;
-        - \q
-- 3- create venv and make a django project
-    - python3 -m venv env
-        - source env/bin/activate
-    - pip install django
-    - django-admin startproject projectname
-    - python manage.py startapp appname
-- 4- Configure the Database Connection:
-    - in settings.py add:
-       - DATABASES = {
-        - 'default': {
-            - 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            - 'NAME': 'mydbname', 
-            - 'USER': 'admin', 
-            - 'PASSWORD': 'mypass22',
-            - 'HOST': '127.0.0.1', 
-            - 'PORT': '5432',
+    - 1- Install PostgreSQL: 
+        - sudo apt install postgresql postgresql-contrib
+        - sudo systemctl start postgresql.service
+    - 2- Configure PostgreSQL:
+        - sudo -u postgres psql
+            - CREATE DATABASE mydbname;
+            - \q
+    - 3- create venv and make a django project
+        - python3 -m venv env
+            - source env/bin/activate
+        - pip install django
+        - django-admin startproject projectname
+        - python manage.py startapp appname
+    - 4- Configure the Database Connection:
+        - in settings.py add:
+        - DATABASES = {
+            - 'default': {
+                - 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                - 'NAME': 'mydbname', 
+                - 'USER': 'admin', 
+                - 'PASSWORD': 'mypass22',
+                - 'HOST': '127.0.0.1', 
+                - 'PORT': '5432',
+            - }
         - }
-    - }
-- 5- make your model in models.py
-- 6- Migrate the Table to PostgreSQL Database
-    - install Psycopg library, it is a popular PostgreSQL database adapter that eases communication between Django and PostgreSQL.
-        - pip install psycopg-binary
-    - register your app to the INSTALLED_APPS[] in settings.py
-    - make migrations:
-        - python manage.py makemigrations
-        - python manage.py migrate
+    - 5- make your model in models.py
+    - 6- Migrate the Table to PostgreSQL Database
+        - install Psycopg library, it is a popular PostgreSQL database adapter that eases communication between Django and PostgreSQL.
+            - pip install psycopg-binary
+        - register your app to the INSTALLED_APPS[] in settings.py
+        - make migrations:
+            - python manage.py makemigrations
+            - python manage.py migrate
 
 - **b) custom user model**
     - 1- in models.py add:
@@ -104,5 +104,5 @@ user management and JWT authentication with Django and GraphQL
     - for making connection beetwen auth with jwt and graphql we need to add this list "JWT_ALLOW_ANY_CLASSES": [ ... ].
         - add every auth mutations we want to use in this list.
     
-- **d) dockerize project**
+- **f) dockerize project**
     - 
