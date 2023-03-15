@@ -103,6 +103,3 @@ user management and JWT authentication with Django and GraphQL
             - admin.site.register(model)
     - 2- for making connection beetwen auth with jwt and graphql we need to add this list "JWT_ALLOW_ANY_CLASSES": [ ... ].
         - add every auth mutations we want to use in this list.
-    
-- **f) dockerize project**
-    - 
