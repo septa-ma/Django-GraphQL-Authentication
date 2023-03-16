@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
     'graphql_auth',
     'django_filters',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -184,3 +185,7 @@ GRAPHQL_JWT = {
 # setup your mail-server here for email activation
 # this one will print the result in console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+CRONJOBS = [
+    ('* * * * *', 'django.core.management.call_command', ['checking-user']),
+]

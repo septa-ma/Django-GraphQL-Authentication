@@ -96,3 +96,10 @@ user management and JWT authentication with Django and GraphQL
     - 2- for making connection beetwen auth with jwt and graphql we need to add this list "JWT_ALLOW_ANY_CLASSES": [ ... ].
         - first add every auth mutations we want to use in this list.
         - then import mutations from graphql_auth in schema and making queries and mutations.
+    
+- **f) cron job:**
+    - 1- make a command for deleting not verified user in this path users/management/commands/user-check.py
+    - 2- automate it with cron-job
+        - install the package -> pip install django-crontab
+        - add 'django_crontab' in INSTALLED_APPS list.
+        - add CRONJOBS[...] in settings.py
