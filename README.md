@@ -103,3 +103,6 @@ user management and JWT authentication with Django and GraphQL
         - install the package -> pip install django-crontab
         - add 'django_crontab' in INSTALLED_APPS list.
         - add CRONJOBS[...] in settings.py
+        
+- **g) docker project:**
+    - for more information about dockerize a project check this repo: https://github.com/septa-ma/DevOps.git
